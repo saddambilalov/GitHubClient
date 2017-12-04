@@ -3,3 +3,10 @@
 ################################################################################
 
 /GitHubClient.ConsoleAppClient/obj/Debug
+/GitHubClient.UnitTests/obj/Debug
+/GitHubClient.Infracture/obj/Debug
+/GitHubClient.Engine/obj/Debug
+/GitHubClient.Infracture/Properties
+/GitHubClient.UnitTests/Properties
+/GitHubClient.ConsoleAppClient/Properties
+/.vs/GitHubClient
