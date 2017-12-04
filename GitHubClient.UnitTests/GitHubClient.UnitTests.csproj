@@ -50,7 +50,18 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="GitHubClientUnitTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GitHubClient.Engine\GitHubClient.Engine.csproj">
+      <Project>{82DB08BA-5547-4C32-83FB-287E911CD6FE}</Project>
+      <Name>GitHubClient.Engine</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GitHubClient.Infracture\GitHubClient.Infracture.csproj">
+      <Project>{602D65CA-A155-4804-B90C-E761C6BF11F8}</Project>
+      <Name>GitHubClient.Infracture</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

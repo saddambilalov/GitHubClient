@@ -10,3 +10,6 @@
 /GitHubClient.UnitTests/Properties
 /GitHubClient.ConsoleAppClient/Properties
 /.vs/GitHubClient
+/GitHubClient.Infracture/bin/Debug
+/GitHubClient.Engine/bin/Debug
+/GitHubClient.UnitTests/bin/Debug
