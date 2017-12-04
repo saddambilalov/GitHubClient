@@ -2,7 +2,7 @@
 
 namespace GitHubClient.Engine.Injectors
 {
-    internal class GitHubHttpHeaderInjector
+    internal class GitHubHttpHeaderInjector : IHttpHeaderInjector
     {
         private const string GitHubApiVersion = "v3";
         private static string GitHubApiVersionHeader => $"application/vnd.github{GitHubApiVersion}+json";

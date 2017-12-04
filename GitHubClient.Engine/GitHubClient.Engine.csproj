@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net.Http.WebRequest" />
@@ -41,7 +44,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Agents\Agent.cs" />
+    <Compile Include="Agents\GitHubAgent.cs" />
+    <Compile Include="ApiMethodsUrl\GitHubApiMethods.cs" />
+    <Compile Include="AppSettings.cs" />
     <Compile Include="HttpHandlers\HttpClientCall.cs" />
     <Compile Include="Injectors\GitHubHttpHeaderInjector.cs" />
     <Compile Include="Injectors\IHttpHeaderInjector.cs" />
@@ -53,5 +58,9 @@
       <Name>GitHubClient.Infracture</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
