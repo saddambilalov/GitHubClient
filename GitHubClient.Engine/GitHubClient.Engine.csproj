@@ -47,6 +47,7 @@
     <Compile Include="Agents\GitHubAgent.cs" />
     <Compile Include="ApiMethodsUrl\GitHubApiMethods.cs" />
     <Compile Include="AppSettings.cs" />
+    <Compile Include="Filters\RepositoryFilters.cs" />
     <Compile Include="HttpHandlers\HttpClientCall.cs" />
     <Compile Include="Injectors\GitHubHttpHeaderInjector.cs" />
     <Compile Include="Injectors\IHttpHeaderInjector.cs" />

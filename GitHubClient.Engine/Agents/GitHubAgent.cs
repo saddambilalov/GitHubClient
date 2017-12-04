@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using GitHubClient.Engine.ApiMethodsUrl;
 using GitHubClient.Engine.HttpHandlers;
@@ -45,10 +45,6 @@ namespace GitHubClient.Engine.Agents
 
             return repositories;
         }
-
-        public async Task<UserApiResult> FilterRepositoriesByStargazersCount(UserApiResult userApiResult, int stargazersCount)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

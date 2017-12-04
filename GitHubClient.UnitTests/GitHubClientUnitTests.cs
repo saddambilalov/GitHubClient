@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using GitHubClient.Engine;
 using GitHubClient.Engine.Agents;
+using GitHubClient.Engine.Filters;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace GitHubClient.UnitTests
@@ -25,9 +26,8 @@ namespace GitHubClient.UnitTests
             Assert.IsNotNull(userApiResult);
             Assert.IsNotNull(userApiResult.Repositories);
 
-            var userApiResultFiltered = await new GitHubAgent(AppSettings.BaseUrl).FilterRepositoriesByStargazersCount(userApiResult, 5);
-
-            Assert.IsTrue(userApiResultFiltered.Repositories.Count > 5, "The count of repositories could not be greater than five");
+            var userApiResultFiltered = RepositoryFilters.FilterRepositoriesByStargazersCount(userApiResult, 5);
+            Assert.IsFalse(userApiResultFiltered.Repositories.Count > 5, "The count of repositories could not be greater than 5");
         }
     }
 }
