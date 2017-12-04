@@ -10,5 +10,10 @@ namespace GitHubClient.Infracture.Models
 
         [JsonProperty(PropertyName = "repositories")]
         public List<RepositoryInfo> Repositories { get; set; }
+
+        [JsonProperty(PropertyName = "errorMessage")]
+        public string ErrorMessage { get; set; }
+
+
     }
 }

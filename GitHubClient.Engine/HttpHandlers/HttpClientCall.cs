@@ -1,5 +1,8 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
+using GitHubClient.Engine.Erros;
 using GitHubClient.Engine.Injectors;
 
 namespace GitHubClient.Engine.HttpHandlers
@@ -15,20 +18,39 @@ namespace GitHubClient.Engine.HttpHandlers
 
         public async Task<string> GetStringAsync(string url)
         {
-            string result;
-
-            using (var requestHandler = new WebRequestHandler())
+            try
             {
-                _httpHeaderInjector.InjectHandler(requestHandler);
+                string result;
 
-                using (var httpClient = new HttpClient(requestHandler))
+                using (var requestHandler = new WebRequestHandler())
                 {
-                    _httpHeaderInjector.InjectHeader(httpClient);
-                    result = await httpClient.GetStringAsync(url);
-                }
-            }
+                    _httpHeaderInjector.InjectHandler(requestHandler);
 
-            return result;
+                    using (var httpClient = new HttpClient(requestHandler))
+                    {
+                        _httpHeaderInjector.InjectHeader(httpClient);
+                        var response = await httpClient.GetAsync(url);
+
+                        if (response.StatusCode == HttpStatusCode.NotFound)
+                        {
+                            throw new ApiException("Not found");
+                        }
+
+                        response.EnsureSuccessStatusCode();
+                        result = await response.Content.ReadAsStringAsync();
+                    }
+                }
+
+                return result;
+            }
+            catch (ApiException)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+                throw new ApiException("Could not connect to GitHub api");
+            }
         }
     }
 }

@@ -14,7 +14,6 @@ namespace GitHubClient.UnitTests
         {
             var userApiResult = await new GitHubAgent(AppSettings.BaseUrl).GetUserInfoWithRepositoriesAsync("saddambilalov");
 
-            Assert.IsNotNull(userApiResult);
             Assert.IsNotNull(userApiResult.UserInfo);
             Assert.AreEqual(userApiResult.UserInfo.Name, "Saddam Bilalov");
         }
@@ -23,7 +22,6 @@ namespace GitHubClient.UnitTests
         public async Task GetUserInfoWithRepositoriesAsync_Top5_Repositories_With_Stargazers_Count()
         {
             var userApiResult = await new GitHubAgent(AppSettings.BaseUrl).GetUserInfoWithRepositoriesAsync("saddambilalov");
-            Assert.IsNotNull(userApiResult);
             Assert.IsNotNull(userApiResult.Repositories);
 
             var userApiResultFiltered = RepositoryFilters.FilterRepositoriesByStargazersCount(userApiResult, 5);
