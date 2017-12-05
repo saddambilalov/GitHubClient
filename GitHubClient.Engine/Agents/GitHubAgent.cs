@@ -1,62 +1,61 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using GitHubClient.Engine.ApiMethodsUrl;
+﻿using GitHubClient.Engine.ApiMethodsUrl;
 using GitHubClient.Engine.Erros;
 using GitHubClient.Engine.HttpHandlers;
 using GitHubClient.Engine.Injectors;
 using GitHubClient.Engine.Parsers;
 using GitHubClient.Infracture.Models;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace GitHubClient.Engine.Agents
 {
-    public class GitHubAgent
-    {
-        private readonly string _baseUrl;
+	public class GitHubAgent
+	{
+		private readonly string _baseUrl;
 
-        public GitHubAgent(string baseUrl)
-        {
-            this._baseUrl = baseUrl;
-        }
+		public GitHubAgent(string baseUrl)
+		{
+			this._baseUrl = baseUrl;
+		}
 
-        public async Task<UserApiResult> GetUserInfoWithRepositoriesAsync(string userName)
-        {
-            try
-            {
-                var userInfo = await GetUserInfo(new GitHubApiMethods(_baseUrl).GetUserInfoUrl(userName));
-                var repositories = await GetRepositoryInfo(userInfo.ReposUrl);
+		public async Task<UserApiResult> GetUserInfoWithRepositoriesAsync(string userName)
+		{
+			try
+			{
+				var userInfo = await GetUserInfo(new GitHubApiMethods(_baseUrl).GetUserInfoUrl(userName));
+				var repositories = await GetRepositoryInfo(userInfo.ReposUrl);
 
-                return new UserApiResult
-                {
-                    UserInfo = userInfo,
-                    Repositories = repositories
-                };
-            }
-            catch (ApiException)
-            {
-                throw;
-            }
-            catch (Exception ex)
-            {
-                throw new ApiException(ex.Message);
-            }
-        }
+				return new UserApiResult
+				{
+					UserInfo = userInfo,
+					Repositories = repositories
+				};
+			}
+			catch (ApiException)
+			{
+				throw;
+			}
+			catch (Exception ex)
+			{
+				throw new ApiException(ex.Message);
+			}
+		}
 
-        private static async Task<UserInfo> GetUserInfo(string url)
-        {
-            var jsonForUserInfo = await new HttpClientCall(new GitHubHttpHeaderInjector()).GetStringAsync(url);
-            var userInfo = JsonParser.ParseUserInfo(jsonForUserInfo);
+		private static async Task<UserInfo> GetUserInfo(string url)
+		{
+			var jsonForUserInfo = await new HttpClientCall(new GitHubHttpHeaderInjector()).GetStringAsync(url);
+			var userInfo = JsonParser.ParseUserInfo(jsonForUserInfo);
 
-            return userInfo;
-        }
+			return userInfo;
+		}
 
-        private static async Task<List<RepositoryInfo>> GetRepositoryInfo(string url)
-        {
-            var jsonForRepositories = await new HttpClientCall(new GitHubHttpHeaderInjector()).GetStringAsync(url);
-            var repositories = JsonParser.ParseRepositories(jsonForRepositories);
+		private static async Task<List<RepositoryInfo>> GetRepositoryInfo(string url)
+		{
+			var jsonForRepositories = await new HttpClientCall(new GitHubHttpHeaderInjector()).GetStringAsync(url);
+			var repositories = JsonParser.ParseRepositories(jsonForRepositories);
 
-            return repositories;
-        }
-
-    }
+			return repositories;
+		}
+	}
 }
