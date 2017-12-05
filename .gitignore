@@ -2,14 +2,8 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-/GitHubClient.ConsoleAppClient/obj/Debug
-/GitHubClient.UnitTests/obj/Debug
-/GitHubClient.Infracture/obj/Debug
-/GitHubClient.Engine/obj/Debug
-/GitHubClient.Infracture/Properties
-/GitHubClient.UnitTests/Properties
-/GitHubClient.ConsoleAppClient/Properties
-/.vs/GitHubClient
-/GitHubClient.Infracture/bin/Debug
-/GitHubClient.Engine/bin/Debug
-/GitHubClient.UnitTests/bin/Debug
+*.vs/
+*/**/bin/Debug
+*/**/bin/Release
+*/**/obj/Debug
+*/**/obj/Release
