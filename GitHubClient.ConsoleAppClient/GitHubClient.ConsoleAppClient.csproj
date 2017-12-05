@@ -42,11 +42,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DisplayData.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GitHubClient.Engine\GitHubClient.Engine.csproj">
+      <Project>{82DB08BA-5547-4C32-83FB-287E911CD6FE}</Project>
+      <Name>GitHubClient.Engine</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GitHubClient.Infracture\GitHubClient.Infracture.csproj">
+      <Project>{602D65CA-A155-4804-B90C-E761C6BF11F8}</Project>
+      <Name>GitHubClient.Infracture</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

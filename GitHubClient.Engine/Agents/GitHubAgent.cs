@@ -36,9 +36,9 @@ namespace GitHubClient.Engine.Agents
             {
                 throw;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw new ApiException("Unexpected error has occurred");
+                throw new ApiException(ex.Message);
             }
         }
 

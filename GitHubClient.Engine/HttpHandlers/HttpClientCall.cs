@@ -18,39 +18,28 @@ namespace GitHubClient.Engine.HttpHandlers
 
         public async Task<string> GetStringAsync(string url)
         {
-            try
-            {
-                string result;
+            string result;
 
-                using (var requestHandler = new WebRequestHandler())
+            using (var requestHandler = new WebRequestHandler())
+            {
+                _httpHeaderInjector.InjectHandler(requestHandler);
+
+                using (var httpClient = new HttpClient(requestHandler))
                 {
-                    _httpHeaderInjector.InjectHandler(requestHandler);
+                    _httpHeaderInjector.InjectHeader(httpClient);
+                    var response = await httpClient.GetAsync(url);
 
-                    using (var httpClient = new HttpClient(requestHandler))
+                    if (response.StatusCode == HttpStatusCode.NotFound)
                     {
-                        _httpHeaderInjector.InjectHeader(httpClient);
-                        var response = await httpClient.GetAsync(url);
-
-                        if (response.StatusCode == HttpStatusCode.NotFound)
-                        {
-                            throw new ApiException("Not found");
-                        }
-
-                        response.EnsureSuccessStatusCode();
-                        result = await response.Content.ReadAsStringAsync();
+                        throw new ApiException("Not found");
                     }
-                }
 
-                return result;
+                    response.EnsureSuccessStatusCode();
+                    result = await response.Content.ReadAsStringAsync();
+                }
             }
-            catch (ApiException)
-            {
-                throw;
-            }
-            catch (Exception ex)
-            {
-                throw new ApiException("Could not connect to GitHub api");
-            }
+
+            return result;
         }
     }
 }

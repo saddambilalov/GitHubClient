@@ -7,6 +7,9 @@ namespace GitHubClient.Infracture.Models
         [JsonProperty(PropertyName = "name")]
         public string Name { get; set; }
 
+        [JsonProperty(PropertyName = "login")]
+        public string UserName { get; set; }
+
         [JsonProperty(PropertyName = "avatar_url")]
         public string AvatarUrl { get; set; }
 
