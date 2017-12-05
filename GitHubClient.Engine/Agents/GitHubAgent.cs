@@ -13,6 +13,7 @@ namespace GitHubClient.Engine.Agents
 	public class GitHubAgent
 	{
 		private readonly string _baseUrl;
+		private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
 		public GitHubAgent(string baseUrl)
 		{
@@ -38,7 +39,8 @@ namespace GitHubClient.Engine.Agents
 			}
 			catch (Exception ex)
 			{
-				throw new ApiException(ex.Message);
+				Log.Error(ex);
+				throw new ApiException("Unexpected error has occurred. You can find details in the backendLogFile.log file.");
 			}
 		}
 
