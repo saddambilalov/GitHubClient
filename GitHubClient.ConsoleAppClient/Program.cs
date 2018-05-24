@@ -1,12 +1,8 @@
-﻿using GitHubClient.Engine;
-using GitHubClient.Engine.Agents;
+﻿using GitHubClient.Engine.Agents;
 using GitHubClient.Engine.Erros;
 using GitHubClient.Engine.Filters;
 using System;
-using GitHubClient.Engine.ApiMethodsUrl;
-using GitHubClient.Engine.HttpHandlers;
-using GitHubClient.Engine.Injectors;
-using GitHubClient.Engine.Parsers;
+using GitHubClient.Engine.Ioc;
 
 namespace GitHubClient.ConsoleAppClient
 {
@@ -19,10 +15,10 @@ namespace GitHubClient.ConsoleAppClient
 				Console.Write("Please enter a GitHub user name : ");
 				var username = Console.ReadLine();
 
-				try
+                try
 				{
-					var userInfoWithRepositories = new GitHubAgent(new GitHubApiMethods(AppSettings.BaseUrl), new JsonParser(), new HttpClientCall(new GitHubHttpHeaderInjector()))
-						.ExecuteTask(username).GetAwaiter().GetResult();
+					var userInfoWithRepositories = IocContainer.GetContainer().Resolve<IAgent>()
+                        .ExecuteTask(username).GetAwaiter().GetResult();
 
 					var userApiResultFiltered =
 						RepositoryFilters.FilterRepositoriesByStargazersCount(userInfoWithRepositories, 5);

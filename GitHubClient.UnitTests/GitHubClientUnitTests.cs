@@ -1,11 +1,7 @@
-﻿using GitHubClient.Engine;
-using GitHubClient.Engine.Agents;
+﻿using GitHubClient.Engine.Agents;
 using GitHubClient.Engine.Filters;
 using System.Threading.Tasks;
-using GitHubClient.Engine.ApiMethodsUrl;
-using GitHubClient.Engine.HttpHandlers;
-using GitHubClient.Engine.Injectors;
-using GitHubClient.Engine.Parsers;
+using GitHubClient.Engine.Ioc;
 using NUnit.Framework;
 
 namespace GitHubClient.UnitTests
@@ -17,7 +13,7 @@ namespace GitHubClient.UnitTests
         [SetUp]
         public void SetUp()
         {
-            _gitHubAgent = new GitHubAgent(new GitHubApiMethods(AppSettings.BaseUrl), new JsonParser(), new HttpClientCall(new GitHubHttpHeaderInjector()));
+            _gitHubAgent = IocContainer.GetContainer().Resolve<IAgent>();
         }
 
         [TearDown]

@@ -12,12 +12,11 @@ namespace GitHubClient.Engine.Agents
     public class GitHubAgent : IAgent
     {
 	    private readonly IParser _parser;
-        private readonly GitHubApiMethods _gitHubApiMethods;
+        private readonly IApiMethods _gitHubApiMethods;
         private readonly IHttpClientCall _httpClientCall;
-
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-		public GitHubAgent(GitHubApiMethods gitHubApiMethods, IParser parser, IHttpClientCall httpClientCall)
+		public GitHubAgent(IApiMethods gitHubApiMethods, IParser parser, IHttpClientCall httpClientCall)
 		{
 		    _gitHubApiMethods = gitHubApiMethods;
             _parser = parser;
@@ -37,7 +36,7 @@ namespace GitHubClient.Engine.Agents
 					Repositories = repositories
 				};
 			}
-			catch (ApiException)
+			catch (ApiException ex)
 			{
 				throw;
 			}
