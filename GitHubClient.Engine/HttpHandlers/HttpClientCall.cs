@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace GitHubClient.Engine.HttpHandlers
 {
-	public class HttpClientCall
-	{
+    public class HttpClientCall : IHttpClientCall
+    {
 		private readonly IHttpHeaderInjector _httpHeaderInjector;
 
 		public HttpClientCall(IHttpHeaderInjector httpHeaderInjector)
 		{
-			this._httpHeaderInjector = httpHeaderInjector;
+			_httpHeaderInjector = httpHeaderInjector;
 		}
 
 		public async Task<string> GetStringAsync(string url)

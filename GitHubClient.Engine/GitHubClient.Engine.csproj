@@ -52,8 +52,10 @@
     <Compile Include="ApiMethodsUrl\GitHubApiMethods.cs" />
     <Compile Include="AppSettings.cs" />
     <Compile Include="Erros\ApiException.cs" />
+    <Compile Include="Erros\IApiException.cs" />
     <Compile Include="Filters\RepositoryFilters.cs" />
     <Compile Include="HttpHandlers\HttpClientCall.cs" />
+    <Compile Include="HttpHandlers\IHttpClientCall.cs" />
     <Compile Include="Injectors\GitHubHttpHeaderInjector.cs" />
     <Compile Include="Injectors\IHttpHeaderInjector.cs" />
     <Compile Include="Parsers\IParser.cs" />

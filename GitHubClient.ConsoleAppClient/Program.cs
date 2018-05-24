@@ -4,6 +4,8 @@ using GitHubClient.Engine.Erros;
 using GitHubClient.Engine.Filters;
 using System;
 using GitHubClient.Engine.ApiMethodsUrl;
+using GitHubClient.Engine.HttpHandlers;
+using GitHubClient.Engine.Injectors;
 using GitHubClient.Engine.Parsers;
 
 namespace GitHubClient.ConsoleAppClient
@@ -19,7 +21,7 @@ namespace GitHubClient.ConsoleAppClient
 
 				try
 				{
-					var userInfoWithRepositories = new GitHubAgent(new GitHubApiMethods(AppSettings.BaseUrl), new JsonParser())
+					var userInfoWithRepositories = new GitHubAgent(new GitHubApiMethods(AppSettings.BaseUrl), new JsonParser(), new HttpClientCall(new GitHubHttpHeaderInjector()))
 						.ExecuteTask(username).GetAwaiter().GetResult();
 
 					var userApiResultFiltered =

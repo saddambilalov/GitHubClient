@@ -1,7 +1,6 @@
 ﻿using GitHubClient.Engine.ApiMethodsUrl;
 using GitHubClient.Engine.Erros;
 using GitHubClient.Engine.HttpHandlers;
-using GitHubClient.Engine.Injectors;
 using GitHubClient.Engine.Parsers;
 using GitHubClient.Infracture.Models;
 using System;
@@ -14,12 +13,15 @@ namespace GitHubClient.Engine.Agents
     {
 	    private readonly IParser _parser;
         private readonly GitHubApiMethods _gitHubApiMethods;
+        private readonly IHttpClientCall _httpClientCall;
+
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-		public GitHubAgent(GitHubApiMethods gitHubApiMethods, IParser parser)
+		public GitHubAgent(GitHubApiMethods gitHubApiMethods, IParser parser, IHttpClientCall httpClientCall)
 		{
 		    _gitHubApiMethods = gitHubApiMethods;
             _parser = parser;
+		    _httpClientCall = httpClientCall;
 		}
 
 		public async Task<UserApiResult> ExecuteTask(string userName)
@@ -48,7 +50,7 @@ namespace GitHubClient.Engine.Agents
 
 		private async Task<UserInfo> GetUserInfo(string url)
 		{
-			var jsonForUserInfo = await new HttpClientCall(new GitHubHttpHeaderInjector()).GetStringAsync(url);
+			var jsonForUserInfo = await _httpClientCall.GetStringAsync(url);
 			var userInfo = _parser.ParseUserInfo(jsonForUserInfo);
 
 			return userInfo;
@@ -56,7 +58,7 @@ namespace GitHubClient.Engine.Agents
 
 		private async Task<List<RepositoryInfo>> GetRepositoryInfo(string url)
 		{
-			var jsonForRepositories = await new HttpClientCall(new GitHubHttpHeaderInjector()).GetStringAsync(url);
+			var jsonForRepositories = await _httpClientCall.GetStringAsync(url);
 			var repositories = _parser.ParseRepositories(jsonForRepositories);
 
 			return repositories;
