@@ -3,6 +3,7 @@ using GitHubClient.Engine.Agents;
 using GitHubClient.Engine.Filters;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Threading.Tasks;
+using GitHubClient.Engine.Parsers;
 
 namespace GitHubClient.UnitTests
 {
@@ -12,7 +13,7 @@ namespace GitHubClient.UnitTests
 		[TestMethod]
 		public async Task GetUserInfoWithRepositoriesAsync_CorrectUser()
 		{
-			var userApiResult = await new GitHubAgent(AppSettings.BaseUrl).GetUserInfoWithRepositoriesAsync("saddambilalov");
+			var userApiResult = await new GitHubAgent(AppSettings.BaseUrl, new JsonParser()).GetUserInfoWithRepositoriesAsync("saddambilalov");
 
 			Assert.IsNotNull(userApiResult.UserInfo);
 			Assert.AreEqual(userApiResult.UserInfo.Name, "Saddam Bilalov");
@@ -21,7 +22,7 @@ namespace GitHubClient.UnitTests
 		[TestMethod]
 		public async Task GetUserInfoWithRepositoriesAsync_Top5_Repositories_With_Stargazers_Count()
 		{
-			var userApiResult = await new GitHubAgent(AppSettings.BaseUrl).GetUserInfoWithRepositoriesAsync("saddambilalov");
+			var userApiResult = await new GitHubAgent(AppSettings.BaseUrl, new JsonParser()).GetUserInfoWithRepositoriesAsync("saddambilalov");
 			Assert.IsNotNull(userApiResult.Repositories);
 
 			var userApiResultFiltered = RepositoryFilters.FilterRepositoriesByStargazersCount(userApiResult, 5);

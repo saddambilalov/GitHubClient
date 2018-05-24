@@ -6,11 +6,11 @@ using System.Collections.Generic;
 
 namespace GitHubClient.Engine.Parsers
 {
-	internal static class JsonParser
-	{
+    public class JsonParser : IParser
+    {
 		private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-		internal static UserInfo ParseUserInfo(string json)
+        public UserInfo ParseUserInfo(string json)
 		{
 			try
 			{
@@ -23,7 +23,7 @@ namespace GitHubClient.Engine.Parsers
 			}
 		}
 
-		internal static List<RepositoryInfo> ParseRepositories(string json)
+        public List<RepositoryInfo> ParseRepositories(string json)
 		{
 			try
 			{

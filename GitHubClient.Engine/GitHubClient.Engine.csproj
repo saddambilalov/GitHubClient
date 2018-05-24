@@ -55,6 +55,7 @@
     <Compile Include="HttpHandlers\HttpClientCall.cs" />
     <Compile Include="Injectors\GitHubHttpHeaderInjector.cs" />
     <Compile Include="Injectors\IHttpHeaderInjector.cs" />
+    <Compile Include="Parsers\IParser.cs" />
     <Compile Include="Parsers\JsonParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

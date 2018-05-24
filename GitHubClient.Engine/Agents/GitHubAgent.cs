@@ -13,11 +13,13 @@ namespace GitHubClient.Engine.Agents
 	public class GitHubAgent
 	{
 		private readonly string _baseUrl;
+	    private readonly IParser _parser;
 		private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-		public GitHubAgent(string baseUrl)
+		public GitHubAgent(string baseUrl, IParser parser)
 		{
-			this._baseUrl = baseUrl;
+		    this._baseUrl = baseUrl;
+		    _parser = parser;
 		}
 
 		public async Task<UserApiResult> GetUserInfoWithRepositoriesAsync(string userName)
@@ -44,18 +46,18 @@ namespace GitHubClient.Engine.Agents
 			}
 		}
 
-		private static async Task<UserInfo> GetUserInfo(string url)
+		private async Task<UserInfo> GetUserInfo(string url)
 		{
 			var jsonForUserInfo = await new HttpClientCall(new GitHubHttpHeaderInjector()).GetStringAsync(url);
-			var userInfo = JsonParser.ParseUserInfo(jsonForUserInfo);
+			var userInfo = _parser.ParseUserInfo(jsonForUserInfo);
 
 			return userInfo;
 		}
 
-		private static async Task<List<RepositoryInfo>> GetRepositoryInfo(string url)
+		private async Task<List<RepositoryInfo>> GetRepositoryInfo(string url)
 		{
 			var jsonForRepositories = await new HttpClientCall(new GitHubHttpHeaderInjector()).GetStringAsync(url);
-			var repositories = JsonParser.ParseRepositories(jsonForRepositories);
+			var repositories = _parser.ParseRepositories(jsonForRepositories);
 
 			return repositories;
 		}
