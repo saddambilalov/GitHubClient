@@ -10,23 +10,23 @@ using System.Threading.Tasks;
 
 namespace GitHubClient.Engine.Agents
 {
-	public class GitHubAgent
-	{
-		private readonly string _baseUrl;
+    public class GitHubAgent : IAgent
+    {
 	    private readonly IParser _parser;
-		private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private readonly GitHubApiMethods _gitHubApiMethods;
+        private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-		public GitHubAgent(string baseUrl, IParser parser)
+		public GitHubAgent(GitHubApiMethods gitHubApiMethods, IParser parser)
 		{
-		    this._baseUrl = baseUrl;
-		    _parser = parser;
+		    _gitHubApiMethods = gitHubApiMethods;
+            _parser = parser;
 		}
 
-		public async Task<UserApiResult> GetUserInfoWithRepositoriesAsync(string userName)
+		public async Task<UserApiResult> ExecuteTask(string userName)
 		{
 			try
 			{
-				var userInfo = await GetUserInfo(new GitHubApiMethods(_baseUrl).GetUserInfoUrl(userName));
+				var userInfo = await GetUserInfo(_gitHubApiMethods.GetUserInfoUrl(userName));
 				var repositories = await GetRepositoryInfo(userInfo.ReposUrl);
 
 				return new UserApiResult

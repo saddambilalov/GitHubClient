@@ -3,6 +3,8 @@ using GitHubClient.Engine.Agents;
 using GitHubClient.Engine.Erros;
 using GitHubClient.Engine.Filters;
 using System;
+using GitHubClient.Engine.ApiMethodsUrl;
+using GitHubClient.Engine.Parsers;
 
 namespace GitHubClient.ConsoleAppClient
 {
@@ -17,8 +19,8 @@ namespace GitHubClient.ConsoleAppClient
 
 				try
 				{
-					var userInfoWithRepositories = new GitHubAgent(AppSettings.BaseUrl)
-						.GetUserInfoWithRepositoriesAsync(username).GetAwaiter().GetResult();
+					var userInfoWithRepositories = new GitHubAgent(new GitHubApiMethods(AppSettings.BaseUrl), new JsonParser())
+						.ExecuteTask(username).GetAwaiter().GetResult();
 
 					var userApiResultFiltered =
 						RepositoryFilters.FilterRepositoriesByStargazersCount(userInfoWithRepositories, 5);

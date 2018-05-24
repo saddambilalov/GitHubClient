@@ -1,10 +1,10 @@
 ﻿namespace GitHubClient.Engine.ApiMethodsUrl
 {
-	internal class GitHubApiMethods
+	public class GitHubApiMethods
 	{
 		private readonly string _baseUrl;
 
-		internal GitHubApiMethods(string baseUrl)
+	    public GitHubApiMethods(string baseUrl)
 		{
 			this._baseUrl = baseUrl;
 		}

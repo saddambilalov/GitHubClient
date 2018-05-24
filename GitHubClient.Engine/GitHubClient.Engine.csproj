@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Agents\GitHubAgent.cs" />
+    <Compile Include="Agents\IAgent.cs" />
     <Compile Include="ApiMethodsUrl\GitHubApiMethods.cs" />
     <Compile Include="AppSettings.cs" />
     <Compile Include="Erros\ApiException.cs" />
