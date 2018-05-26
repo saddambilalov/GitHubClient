@@ -33,13 +33,14 @@ namespace GitHubClient.UnitTests
         }
 
         [Test]
-        public async Task GetUserInfoWithRepositoriesAsync_Top5_Repositories_With_Stargazers_Count()
+        [TestCase("saddambilalov", 5)]
+        public async Task GetUserInfoWithRepositoriesAsync_Top5_Repositories_With_Stargazers_Count(string userName, int count)
         {
-            var userApiResult = await _gitHubAgent.ExecuteTask("saddambilalov");
+            var userApiResult = await _gitHubAgent.ExecuteTask(userName);
             Assert.That(userApiResult.Repositories, Is.Not.Null);
 
             var userApiResultFiltered = RepositoryFilters.FilterRepositoriesByStargazersCount(userApiResult, 5);
-            Assert.That(userApiResultFiltered.Repositories.Count > 5, Is.Not.EqualTo("The count of repositories could not be greater than 5"));
+            Assert.That(userApiResultFiltered.Repositories, Has.Count.LessThanOrEqualTo(5));
         }
     }
 }
