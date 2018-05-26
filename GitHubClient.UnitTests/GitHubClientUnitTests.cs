@@ -34,13 +34,13 @@ namespace GitHubClient.UnitTests
 
         [Test]
         [TestCase("saddambilalov", 5)]
-        public async Task GetUserInfoWithRepositoriesAsync_Top5_Repositories_With_Stargazers_Count(string userName, int count)
+        public async Task GetUserInfoWithRepositoriesAsync_TopN_Repositories_With_Stargazers_Count(string userName, int n)
         {
             var userApiResult = await _gitHubAgent.ExecuteTask(userName);
             Assert.That(userApiResult.Repositories, Is.Not.Null);
 
-            var userApiResultFiltered = RepositoryFilters.FilterRepositoriesByStargazersCount(userApiResult, 5);
-            Assert.That(userApiResultFiltered.Repositories, Has.Count.LessThanOrEqualTo(5));
+            var userApiResultFiltered = RepositoryFilters.FilterRepositoriesByStargazersCount(userApiResult, n);
+            Assert.That(userApiResultFiltered.Repositories, Has.Count.LessThanOrEqualTo(n));
         }
     }
 }
